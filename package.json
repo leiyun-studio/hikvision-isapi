@@ -1,0 +1,64 @@
+{
+  "name": "@lystudio/hikvision-isapi",
+  "version": "0.1.0",
+  "private": false,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "node --env-file=.env src/server.js",
+    "dev": "node --env-file=.env --watch src/server.js",
+    "test": "node --test",
+    "example:web": "node examples/web/server.js",
+    "example:web:dev": "node --watch examples/web/server.js",
+    "build": "node scripts/build.js",
+    "typecheck": "tsc --noEmit",
+    "check": "npm test && npm run typecheck && npm run build",
+    "prepack": "npm run typecheck && npm run build",
+    "pack:verify": "node scripts/verify-package.js"
+  },
+  "dependencies": {
+    "fast-xml-parser": "5.11.2"
+  },
+  "devDependencies": {
+    "@types/node": "22.20.5",
+    "fastify": "5.12.7",
+    "fastify-plugin": "6.0.1",
+    "typescript": "7.0.2"
+  },
+  "description": "Node.js SDK for Hikvision access control ISAPI",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leiyun-studio/hikvision-isapi.git"
+  },
+  "homepage": "https://github.com/leiyun-studio/hikvision-isapi#readme",
+  "bugs": {
+    "url": "https://github.com/leiyun-studio/hikvision-isapi/issues"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.zh-CN.md",
+    "docs/wiki/*.md",
+    "docs/WIKI-PUBLISHING.md"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "hikvision",
+    "isapi",
+    "access-control",
+    "sdk"
+  ]
+}

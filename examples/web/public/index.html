@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ISAPI · 设备测试台</title>
+  <link rel="stylesheet" href="/style.css">
+  <script type="module" src="/app.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="ISAPI 测试台首页"><span class="brand-mark">i</span><span>ISAPI <b>LAB</b></span></a>
+    <span class="local-label"><span class="dot"></span> 本地设备测试</span>
+  </header>
+  <main>
+    <section class="intro">
+      <p class="eyebrow">HIKVISION ACCESS CONTROL</p>
+      <h1>连接设备，开始测试。</h1>
+      <p class="intro-text">填写设备地址和登录信息，测试 SDK 接口并查看设备原始响应。</p>
+    </section>
+    <div class="workspace">
+      <section class="card connection-card" aria-labelledby="connection-title">
+        <div class="card-heading"><div><span class="section-number">01</span><h2 id="connection-title">设备连接</h2></div><span id="connection-state" class="tag">未测试</span></div>
+        <form id="connection-form" autocomplete="off">
+          <fieldset class="mode-selector"><legend class="sr-only">地址输入方式</legend>
+            <label><input type="radio" name="addressMode" value="url" checked><span>Base URL</span></label>
+            <label><input type="radio" name="addressMode" value="address"><span>IP / 主机 + 端口</span></label>
+          </fieldset>
+          <div id="url-fields" class="field"><label for="base-url">设备 Base URL</label>
+            <input id="base-url" name="baseUrl" type="url" placeholder="http://192.168.0.75:8080" required spellcheck="false">
+            <small>包含 http:// 或 https://，端口按设备实际配置填写。</small>
+          </div>
+          <div id="address-fields" hidden>
+            <div class="field"><label for="protocol">协议</label><select id="protocol" disabled><option value="http:">HTTP</option><option value="https:">HTTPS</option></select></div>
+            <div class="address-row">
+              <div class="field"><label for="hostname">设备 IP / 主机名</label><input id="hostname" placeholder="192.168.0.75" spellcheck="false" required disabled></div>
+              <div class="field port-field"><label for="device-port">端口</label><input id="device-port" type="number" value="80" min="1" max="65535" required disabled></div>
+            </div>
+          </div>
+          <div class="field"><label for="username">用户名</label><input id="username" name="username" value="admin" autocomplete="off" required spellcheck="false"></div>
+          <div class="field"><label for="password">密码</label><div class="password-wrap"><input id="password" name="password" type="password" autocomplete="off" placeholder="设备登录密码" required><button id="toggle-password" type="button" class="password-toggle" aria-label="显示密码">显示</button></div></div>
+          <div class="field"><label for="timeout">请求超时 <span>秒</span></label><input id="timeout" type="number" value="15" min="1" max="60" required></div>
+          <label class="checkbox-label"><input id="allow-self-signed" type="checkbox"><span>允许不受信任的设备 HTTPS 证书</span></label>
+          <small class="certificate-note">仅影响本次设备连接，默认验证证书。</small>
+          <button class="button primary connect-button" id="connect-button" type="submit"><span class="button-icon">↗</span> 测试连接 / 获取设备信息</button>
+          <p class="privacy-note">账号密码仅用于本次请求，不写入文件或浏览器存储。</p>
+        </form>
+      </section>
+      <div class="right-column">
+        <section class="card request-card" aria-labelledby="request-title">
+          <div class="card-heading"><div><span class="section-number">02</span><h2 id="request-title">ISAPI 请求</h2></div><span class="tag subtle">只读 GET</span></div>
+          <div class="presets" aria-label="请求预设"><button type="button" data-path="/ISAPI/System/deviceInfo" class="preset active">设备信息</button><button type="button" data-path="/ISAPI/System/Network/interfaces" class="preset">网络信息</button><button type="button" data-path="/ISAPI/Security/adminAccesses" class="preset">服务端口</button></div>
+          <form id="request-form"><label for="request-path" class="path-label">请求路径</label><div class="request-line"><span class="method">GET</span><input id="request-path" value="/ISAPI/System/deviceInfo" required spellcheck="false" aria-label="ISAPI 请求路径"><button id="send-button" type="submit" class="button primary">发送请求 <span>→</span></button></div></form>
+          <p class="request-note">可输入其他 <code>/ISAPI/</code> 路径及查询参数，响应保留 JSON / XML 原文。</p>
+        </section>
+        <section class="card sdk-card" aria-labelledby="sdk-title">
+          <div class="card-heading"><div><span class="section-number">03</span><h2 id="sdk-title">SDK 接口测试</h2></div><span class="tag subtle">@lystudio/hikvision-isapi</span></div>
+          <form id="sdk-form" class="sdk-form">
+            <div class="field"><label for="sdk-action">选择接口</label><select id="sdk-action" required><option value="">正在加载接口…</option></select></div>
+            <div class="field"><label for="sdk-params">调用参数 · JSON</label><textarea id="sdk-params" rows="10" spellcheck="false" required>{}</textarea></div>
+            <div id="face-upload" class="field" hidden><label for="face-file">或选择 JPEG 人脸图片</label><input id="face-file" type="file" accept="image/jpeg"><small>选择后转为 Base64，填写到上方 image 参数中。图片最多 10 MiB。</small></div>
+            <label id="write-confirmation" class="checkbox-label" hidden><input id="confirm-write" type="checkbox"><span>我确认执行此操作，允许修改设备数据或门状态。</span></label>
+            <p class="sdk-note">参数可按设备能力调整。图片 file 模式保存到测试服务的 examples/web/downloads；实时订阅请使用 Node.js 示例。</p>
+            <button id="sdk-button" type="submit" class="button primary">调用 SDK →</button>
+          </form>
+          <div class="sdk-code-heading"><strong>SDK 示例代码</strong><button id="copy-sdk-code" type="button">复制代码</button></div>
+          <p id="sdk-code-status" class="sdk-note" role="status">选择接口后显示，可复制到 Node.js 项目运行。</p>
+          <pre id="sdk-code" tabindex="0" aria-label="SDK 调用示例代码"></pre>
+        </section>
+        <section class="card response-card" aria-labelledby="response-title">
+          <div class="card-heading"><div><span class="section-number">04</span><h2 id="response-title">设备响应</h2></div><div class="response-actions"><button id="copy-response" type="button" disabled>复制</button><button id="save-response" type="button" disabled>下载</button></div></div>
+          <div id="response-meta" class="response-meta" hidden><span id="http-status" class="tag"></span><span id="response-format"></span><span id="elapsed"></span><span id="response-size"></span></div>
+          <p id="request-status" class="request-status" role="status" aria-live="polite">尚未发送请求</p>
+          <div id="empty-state" class="empty-state"><span class="terminal-icon">&gt;_</span><h3>等待第一条响应</h3><p>测试连接，或选择一个接口发送请求。</p></div>
+          <img id="image-preview" alt="设备返回的事件图片" hidden>
+          <pre id="response-body" hidden tabindex="0" aria-label="设备原始响应"></pre>
+        </section>
+      </div>
+    </div>
+    <footer>HTTP / HTTPS · Digest Authentication <span>JavaScript SDK Example</span></footer>
+  </main>
+</body>
+</html>
