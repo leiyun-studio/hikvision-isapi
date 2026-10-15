@@ -86,7 +86,7 @@ npm run example:web
 
 ## 文档
 
-完整用法见 [中文 Wiki](docs/wiki/Home-zh-CN.md)，也提供 [English Wiki](docs/wiki/Home.md)。
+完整用法见[在线中文 Wiki](https://github.com/leiyun-studio/hikvision-isapi/wiki/Home-zh-CN)，也提供 [English Wiki](https://github.com/leiyun-studio/hikvision-isapi/wiki)。仓库和 npm 包内同时保留[本地文档](docs/wiki/Home-zh-CN.md)。
 
 | 指南 | 内容 |
 | --- | --- |

@@ -86,7 +86,7 @@ Open **http://127.0.0.1:3050**. Enter a `baseUrl` or an IP/hostname and port, th
 
 ## Documentation
 
-Start with the [Wiki](docs/wiki/Home.md), also available in [简体中文](docs/wiki/Home-zh-CN.md).
+Start with the [online Wiki](https://github.com/leiyun-studio/hikvision-isapi/wiki), also available in [简体中文](https://github.com/leiyun-studio/hikvision-isapi/wiki/Home-zh-CN). A [local copy](docs/wiki/Home.md) is included in the repository and npm package.
 
 | Guide | Contents |
 | --- | --- |

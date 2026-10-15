@@ -4,7 +4,7 @@
 
 ## English
 
-The Markdown files under `docs/wiki/` are readable in the main repository and included in the npm archive. They are also the source for GitHub's separate Wiki. No Wiki has been published by preparing these files.
+The Markdown files under `docs/wiki/` are readable in the main repository and included in the npm archive. They are also the source for the [published GitHub Wiki](https://github.com/leiyun-studio/hikvision-isapi/wiki). Use this workflow to synchronize future changes.
 
 1. Use the project repository [leiyun-studio/hikvision-isapi](https://github.com/leiyun-studio/hikvision-isapi).
 2. Enable **Wikis** in the repository settings, if available for your repository/account. In the **Wiki** tab, create and save an initial `Home` page to initialize its repository.
@@ -16,7 +16,7 @@ GitHub stores Wiki pages separately from the main repository; pushing project fi
 
 ## 简体中文
 
-`docs/wiki/` 内的 Markdown 可直接在主仓库阅读，也会包含在 npm 包中，同时作为 GitHub 独立 Wiki 的源文件。准备这些文件不代表已经发布 Wiki。
+`docs/wiki/` 内的 Markdown 可直接在主仓库阅读，也会包含在 npm 包中，同时作为[已发布的 GitHub Wiki](https://github.com/leiyun-studio/hikvision-isapi/wiki/Home-zh-CN) 的源文件。后续文档更新可按以下流程同步。
 
 1. 使用项目仓库 [leiyun-studio/hikvision-isapi](https://github.com/leiyun-studio/hikvision-isapi)。
 2. 如果仓库和账号支持 Wiki，在仓库设置中启用 **Wikis**，进入 **Wiki** 页签，创建并保存初始 `Home` 页面，以初始化 Wiki 仓库。
@@ -55,6 +55,6 @@ The export overwrites matching filenames, without removing other Wiki pages. For
 
 导出会覆盖同名文件，不会删除其他 Wiki 页面。后续更新前，先拉取 Wiki 仓库并检查网页端修改，同步到 `docs/wiki/` 后重新导出。重命名或废弃页面需要审查后手动清理，避免留下旧页面。
 
-After publishing the Wiki, you can additionally link to it from both READMEs. Until then, their relative links point to the documentation in the source repository.
+Both READMEs link to the live Wiki and retain local documentation links. Updates to source files need a separate Wiki push to appear online.
 
-发布 Wiki 后，可在两份 README 中增加在线 Wiki 链接。目前的相对链接指向源码仓库中的文档。
+两份 README 已提供在线 Wiki 入口，并保留本地文档链接。更新源文件后，需要单独推送 Wiki 仓库，线上页面才会更新。
