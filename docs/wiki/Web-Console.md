@@ -4,7 +4,7 @@
 
 ## Run locally
 
-From the source repository:
+From the source repository, using Node.js 22 or later (the core SDK supports older runtimes separately):
 
 ```sh
 npm ci

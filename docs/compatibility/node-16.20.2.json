@@ -1,0 +1,175 @@
+{
+  "node": "v16.20.2",
+  "platform": "win32",
+  "arch": "x64",
+  "sdkVersion": "0.1.0",
+  "testedAt": "2026-10-16T02:20:02.936Z",
+  "scope": "Built SDK with installed dependency tree; simulated devices only. No SDK polyfills or transformations.",
+  "harness": "Sequential test/after adapter; fixture sockets tracked for legacy teardown. Web console and TypeScript tooling excluded.",
+  "features": {
+    "AbortController": "function",
+    "abortTimeout": "function",
+    "abortAny": "undefined",
+    "performance": "object",
+    "replaceAll": "function"
+  },
+  "syntaxFailures": [],
+  "tests": [
+    {
+      "name": "人脸查询接受平铺和带根节点的 JSON，查询 FPID 使用字符串",
+      "passed": true
+    },
+    {
+      "name": "Digest MD5 支持并发请求且请求体保持完整",
+      "passed": true
+    },
+    {
+      "name": "Digest SHA-256 支持并发请求且请求体保持完整",
+      "passed": true
+    },
+    {
+      "name": "Digest MD5-sess 支持并发请求且请求体保持完整",
+      "passed": true
+    },
+    {
+      "name": "Digest SHA-256-sess 支持并发请求且请求体保持完整",
+      "passed": true
+    },
+    {
+      "name": "人员与卡片 CRUD 保持工号/卡号字符串，按指定 ID 删除",
+      "passed": true
+    },
+    {
+      "name": "事件迭代复用 searchID、推进位置、保留扩展字段和图片 URL",
+      "passed": true
+    },
+    {
+      "name": "人员和卡片查询归一化分页，空 MORE 与重复分页被拒绝",
+      "passed": true
+    },
+    {
+      "name": "人脸 URL 直传由设备下载，不访问图片服务器",
+      "passed": true
+    },
+    {
+      "name": "SDK 获取外部图片时不转发设备凭据，multipart 在 Digest 重发后仍保持二进制",
+      "passed": true
+    },
+    {
+      "name": "人脸支持 Buffer、Base64、本地文件输入，删除按库和 FPID 定位",
+      "passed": true
+    },
+    {
+      "name": "图片下载三种模式保持相同字节，文件不被意外覆盖，JSON 错误不保存为图片",
+      "passed": true
+    },
+    {
+      "name": "XML 解析保留前导零，拒绝 DTD；不支持能力与业务错误可区分",
+      "passed": true
+    },
+    {
+      "name": "门控制发送官方 XML；写入超时不重试并报告结果未知",
+      "passed": true
+    },
+    {
+      "name": "multipart 在每个字节边界分片时仍保留图片中的 boundary 字节",
+      "passed": true
+    },
+    {
+      "name": "multipart 截断和非法 Content-Length 明确失败",
+      "passed": true
+    },
+    {
+      "name": "实时订阅把声明图片数的事件与图片配对，支持保存内嵌图片字节",
+      "passed": true
+    },
+    {
+      "name": "未声明图片归属时，图片作为独立记录上报，不按时间猜测",
+      "passed": true
+    },
+    {
+      "name": "退出实时迭代会关闭连接，不留下后台订阅",
+      "passed": true
+    },
+    {
+      "name": "批量新增限制并发、保持结果顺序并保留部分失败，失败条目不重发",
+      "passed": true
+    },
+    {
+      "name": "批量修改、卡片设置、人脸设置使用正确单项接口和数据，重复 ID 在下发前拒绝",
+      "passed": true
+    },
+    {
+      "name": "原生批量删除一次发送 ID 列表，整体受理不伪装为逐项完成",
+      "passed": true
+    },
+    {
+      "name": "个别固件可显式逐项删除；原生组错误保留未知状态且不自动重试",
+      "passed": true
+    },
+    {
+      "name": "批量 stopOnError、取消与网络结果未知不会继续发送尚未开始的条目",
+      "passed": true
+    },
+    {
+      "name": "时间设置保持时区和秒值；NTP 地址、端口、分钟间隔与模式分别配置",
+      "passed": true
+    },
+    {
+      "name": "pre-aborted requests send nothing and release caller listeners",
+      "passed": true
+    },
+    {
+      "name": "caller listeners are removed after successful requests, device errors and Digest replays",
+      "passed": true
+    },
+    {
+      "name": "timeout terminates a response body after headers and marks writes unknown",
+      "passed": true
+    },
+    {
+      "name": "timeout also bounds a stalled Digest challenge body",
+      "passed": true
+    },
+    {
+      "name": "abort stops an in-flight batch write without starting the next item",
+      "passed": true
+    },
+    {
+      "name": "subscription idle timeout destroys the socket and releases caller listeners",
+      "passed": true
+    },
+    {
+      "name": "subscription non-200 response body remains bounded by connection timeout",
+      "passed": true
+    },
+    {
+      "name": "cancelling subscription backoff stops reconnects and releases listeners",
+      "passed": true
+    },
+    {
+      "name": "request with caller AbortSignal",
+      "passed": true
+    },
+    {
+      "name": "in-flight request cancellation reports ABORTED",
+      "passed": true
+    },
+    {
+      "name": "subscription with caller AbortSignal closes cleanly",
+      "passed": true
+    }
+  ],
+  "xmlDependency": {
+    "passed": true
+  },
+  "sdkImport": {
+    "passed": true
+  },
+  "timerPromises": true,
+  "summary": {
+    "passed": 36,
+    "failed": 0,
+    "blocked": false
+  }
+}

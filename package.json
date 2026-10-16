@@ -4,7 +4,7 @@
   "private": false,
   "type": "module",
   "engines": {
-    "node": ">=22"
+    "node": ">=16.20.2"
   },
   "scripts": {
     "start": "node --env-file=.env src/server.js",
@@ -16,7 +16,8 @@
     "typecheck": "tsc --noEmit",
     "check": "npm test && npm run typecheck && npm run build",
     "prepack": "npm run typecheck && npm run build",
-    "pack:verify": "node scripts/verify-package.js"
+    "pack:verify": "node scripts/verify-package.js",
+    "compat:probe": "node scripts/probe-node-compatibility.js"
   },
   "dependencies": {
     "fast-xml-parser": "5.11.2"

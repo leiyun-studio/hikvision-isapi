@@ -4,7 +4,7 @@
 
 ## Local setup
 
-Use Node.js 22 or later. From a source checkout:
+Use Node.js 22 or later for source development and build tooling. Applications using the installed SDK can run on Node.js 16.20.2 or later. From a source checkout:
 
 ```sh
 npm ci

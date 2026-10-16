@@ -2,7 +2,7 @@
 
 **English** · [简体中文](Home-zh-CN.md)
 
-This Wiki documents `@lystudio/hikvision-isapi`, a Node.js 22+ SDK for direct ISAPI access to Hikvision access control devices. It uses JavaScript ES Modules and includes TypeScript declarations.
+This Wiki documents `@lystudio/hikvision-isapi`, a Node.js 16.20.2+ SDK for direct ISAPI access to Hikvision access control devices. It uses JavaScript ES Modules and includes TypeScript declarations. Development tools and the web console use Node.js 22+; see [compatibility](Compatibility.md).
 
 ## Start here
 

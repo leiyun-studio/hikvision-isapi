@@ -2,7 +2,7 @@
 
 [English](Home.md) · **简体中文**
 
-本文档介绍 `@lystudio/hikvision-isapi`，用于直接调用海康门禁设备 ISAPI。要求 Node.js 22 或以上，使用 JavaScript ES Modules，并提供 TypeScript 类型声明。
+本文档介绍 `@lystudio/hikvision-isapi`，用于直接调用海康门禁设备 ISAPI。SDK 支持 Node.js 16.20.2 或以上，使用 JavaScript ES Modules，并提供 TypeScript 类型声明。开发工具和网页测试台使用 Node.js 22+，详见[兼容性说明](Compatibility-zh-CN.md)。
 
 ## 入门顺序
 

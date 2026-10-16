@@ -1,0 +1,43 @@
+{
+  "node": "v14.21.3",
+  "platform": "win32",
+  "arch": "x64",
+  "sdkVersion": "0.1.0",
+  "testedAt": "2026-10-16T01:55:57.224Z",
+  "scope": "Built SDK with installed dependency tree; simulated devices only. No SDK polyfills or transformations.",
+  "harness": "Sequential test/after adapter; fixture sockets tracked for legacy teardown. Web console and TypeScript tooling excluded.",
+  "features": {
+    "AbortController": "undefined",
+    "abortTimeout": "undefined",
+    "abortAny": "undefined",
+    "performance": "undefined",
+    "replaceAll": "undefined"
+  },
+  "syntaxFailures": [
+    {
+      "file": "dist/client.js",
+      "error": "SyntaxError: Unexpected token '??='"
+    },
+    {
+      "file": "dist/resources/batch.js",
+      "error": "SyntaxError: Unexpected token '??='"
+    }
+  ],
+  "tests": [],
+  "xmlDependency": {
+    "passed": true
+  },
+  "sdkImport": {
+    "passed": false,
+    "error": {
+      "name": "SyntaxError",
+      "message": "Unexpected token '??='"
+    }
+  },
+  "timerPromises": false,
+  "summary": {
+    "passed": 0,
+    "failed": 0,
+    "blocked": true
+  }
+}

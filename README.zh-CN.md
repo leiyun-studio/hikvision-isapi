@@ -16,11 +16,14 @@
 
 ## 环境与兼容性
 
-- Node.js **22 或以上**，使用 ES Modules，附带 TypeScript 类型声明。
+- SDK 运行环境：Node.js **16.20.2 或以上**，使用 ES Modules，附带 TypeScript 类型声明。
+- 源码开发、构建工具和网页测试台：Node.js **22 或以上**。
 - 设备支持 ISAPI，运行 SDK 的机器能够访问设备，账号具备相应权限。
 - 接口支持情况和必填字段随型号、固件变化，请先读取能力集并验证目标设备。
 
 SDK 直接连接设备，不负责建立跨 NAT 的网络连接。门禁图片能否获取，取决于设备是否返回可用的图片地址或二进制数据。
+
+核心运行时验证覆盖 Node 16、18、20、22、24，具体版本与验证范围见[兼容性说明](docs/wiki/Compatibility-zh-CN.md)。CommonJS 项目可在 async 函数中使用 `await import('@lystudio/hikvision-isapi')`，当前不提供独立的 `require()` 构建。
 
 ## 安装
 

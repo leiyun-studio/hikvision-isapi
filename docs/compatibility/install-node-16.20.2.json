@@ -1,0 +1,12 @@
+{
+  "node": "v16.20.2",
+  "npm": "8.19.4",
+  "platform": "win32",
+  "arch": "x64",
+  "sdkVersion": "0.1.0",
+  "engineStrict": true,
+  "freshProductionInstall": true,
+  "passed": true,
+  "smoke": "Installed package: CommonJS dynamic import, XML, HTTP, timeout and abort passed.",
+  "testedAt": "2026-10-16T02:23:09.695Z"
+}

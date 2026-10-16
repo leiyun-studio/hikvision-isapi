@@ -4,6 +4,7 @@
 
 ## English
 
+- [Runtime compatibility](Compatibility.md)
 - [Client configuration](Configuration.md)
 - [API reference](API-Reference.md)
 - [Batch operations](Batch-Operations.md)
@@ -15,6 +16,7 @@
 
 ## 简体中文
 
+- [运行环境兼容性](Compatibility-zh-CN.md)
 - [客户端配置](Configuration-zh-CN.md)
 - [API 参考](API-Reference-zh-CN.md)
 - [批量操作](Batch-Operations-zh-CN.md)

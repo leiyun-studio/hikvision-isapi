@@ -2,7 +2,7 @@
 
 [English guide](../../docs/wiki/Web-Console.md) · [中文 Wiki](../../docs/wiki/Web-Console-zh-CN.md) · [项目首页](../../README.zh-CN.md)
 
-在仓库中执行 `npm install` 和 `npm run example:web`，打开 <http://127.0.0.1:3050>。默认仅监听本机。自定义端口可在 PowerShell 使用 `$env:WEB_EXAMPLE_PORT='3051'`。
+使用 Node.js 22 或以上，在仓库中执行 `npm install` 和 `npm run example:web`，打开 <http://127.0.0.1:3050>。核心 SDK 的最低运行版本为 Node.js 16.20.2，与测试台的开发依赖分开。默认仅监听本机。自定义端口可在 PowerShell 使用 `$env:WEB_EXAMPLE_PORT='3051'`。
 
 连接支持完整 `baseUrl`，或协议、IP/主机、端口分开输入；账号密码不保存在浏览器或文件中。HTTPS 默认验证证书，测试自签名设备时可勾选允许不受信任证书。
 

@@ -16,11 +16,14 @@ A Node.js SDK for Hikvision access control devices over ISAPI. Manage people, ca
 
 ## Requirements and compatibility
 
-- Node.js **22 or later**; ES Modules. TypeScript declarations are included.
+- SDK runtime: Node.js **16.20.2 or later**; ES Modules. TypeScript declarations are included.
+- Source development, build tools, and the web console: Node.js **22 or later**.
 - An ISAPI-capable device reachable from the SDK host, with an authorized device account.
 - Endpoint support and required fields vary by model and firmware. Check capabilities and validate your target device.
 
 The SDK connects directly to the device; it does not establish connectivity across NAT. Event images are available only when the device provides a usable image reference or binary data.
+
+Core runtime checks cover Node 16, 18, 20, 22, and 24. See [compatibility](docs/wiki/Compatibility.md) for tested versions and limits. CommonJS applications can load the SDK using `await import('@lystudio/hikvision-isapi')` inside an async function; a separate `require()` build is not provided.
 
 ## Installation
 

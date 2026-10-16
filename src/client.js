@@ -1,6 +1,7 @@
 import { HikvisionError } from './sdk-error.js';
 import { digestAuthorization, parseChallenge } from './transport/digest.js';
 import { openResponse, readResponse } from './transport/http.js';
+import { cancellationScope } from './transport/cancellation.js';
 import { decodeResponse, getBusinessError } from './parsers/response.js';
 import { createResources } from './resources/index.js';
 
@@ -100,11 +101,10 @@ export class HikvisionClient {
     }
     if (contentType && (typeof contentType !== 'string' || /[\r\n]/.test(contentType))) throw new HikvisionError('INVALID_ARGUMENT', 'Content-Type 无效。');
     if (maxBytes !== undefined && (!Number.isSafeInteger(maxBytes) || maxBytes < 1 || maxBytes > this.#maxResponseBytes)) throw new HikvisionError('INVALID_ARGUMENT', '响应大小限制无效。');
-    const timeout = AbortSignal.timeout(this.#timeout);
-    const combined = signal ? AbortSignal.any([timeout, signal]) : timeout;
+    const cancellation = cancellationScope(signal, this.#timeout);
     const started = performance.now();
     try {
-      const response = await readResponse(await this.#authenticate(url, { method, body: input, signal: combined,
+      const response = await readResponse(await this.#authenticate(url, { method, body: input, signal: cancellation.signal,
         headers: contentType ? { 'Content-Type': contentType } : {} }), maxBytes ?? this.#maxResponseBytes);
       const type = response.headers['content-type'] ?? 'application/octet-stream';
       const decoded = decodeResponse(response.bytes, type);
@@ -119,7 +119,8 @@ export class HikvisionClient {
       }
       if (responseType !== 'auto') Object.assign(result, decodeResponse(response.bytes, type, responseType));
       return result;
-    } catch (error) { throw this.#error(error, timeout, signal, method); }
+    } catch (error) { throw this.#error(error, { aborted: cancellation.timedOut }, signal, method); }
+    finally { cancellation.dispose(); }
   }
 
   /** Download from the same device by default. External URLs require explicit opt-in; device credentials are never forwarded. */
@@ -132,24 +133,22 @@ export class HikvisionClient {
   async *stream({ path = '/ISAPI/Event/notification/alertStream', signal, idleTimeout = 60_000 } = {}) {
     const url = this.#url(path);
     if (!Number.isInteger(idleTimeout) || idleTimeout < 1000) throw new HikvisionError('INVALID_ARGUMENT', '流空闲超时至少 1000 毫秒。');
-    const controller = new AbortController();
-    const combined = signal ? AbortSignal.any([signal, controller.signal]) : controller.signal;
-    const timer = setTimeout(() => controller.abort(), this.#timeout); timer.unref();
+    const cancellation = cancellationScope(signal, this.#timeout);
     let response;
     try {
-      response = await this.#authenticate(url, { method: 'GET', signal: combined });
-      clearTimeout(timer);
+      response = await this.#authenticate(url, { method: 'GET', signal: cancellation.signal });
       if (response.statusCode !== 200) {
         const raw = await readResponse(response, this.#maxResponseBytes);
         throw new HikvisionError(raw.status === 401 ? 'AUTHENTICATION_FAILED' : 'DEVICE_ERROR', `事件流返回 HTTP ${raw.status}。`);
       }
-      response.setTimeout(idleTimeout, () => controller.abort());
+      cancellation.clearTimer();
+      response.setTimeout(idleTimeout, cancellation.timeout);
       yield { headers: response.headers };
       for await (const chunk of response) yield { chunk };
     } catch (error) {
       if (signal?.aborted) return;
-      if (controller.signal.aborted) throw new HikvisionError('TIMEOUT', '事件流连接或空闲等待超时。');
-      throw this.#error(error, controller.signal, signal, 'GET');
-    } finally { clearTimeout(timer); response?.destroy(); controller.abort(); }
+      if (cancellation.timedOut) throw new HikvisionError('TIMEOUT', '事件流连接或空闲等待超时。');
+      throw this.#error(error, { aborted: false }, signal, 'GET');
+    } finally { response?.destroy(); cancellation.dispose(); }
   }
 }

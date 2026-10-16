@@ -4,14 +4,32 @@ import { HikvisionError } from '../sdk-error.js';
 
 export function openResponse(url, { method = 'GET', body, headers = {}, signal, tls = {} } = {}) {
   return new Promise((resolve, reject) => {
+    const abortError = () => Object.assign(new Error('The request was aborted'), { name: 'AbortError', code: 'ABORT_ERR' });
+    if (signal?.aborted) { reject(abortError()); return; }
+    let response;
     const request = (url.protocol === 'https:' ? https : http).request(url, {
-      method, agent: false, signal,
+      method, agent: false,
       headers: { Accept: 'application/json, application/xml, */*',
         ...(body === undefined ? {} : { 'Content-Length': body.length }), ...headers },
       ...(url.protocol === 'https:' ? { rejectUnauthorized: tls.rejectUnauthorized !== false,
         ...(tls.ca ? { ca: tls.ca } : {}) } : {}),
-    }, resolve);
-    request.once('error', reject);
+    }, incoming => {
+      response = incoming;
+      incoming.once('error', reject);
+      incoming.once('end', cleanup);
+      incoming.once('close', cleanup);
+      resolve(incoming);
+    });
+    const abort = () => {
+      const error = abortError();
+      request.destroy(error);
+      response?.destroy(error);
+    };
+    const cleanup = () => signal?.removeEventListener('abort', abort);
+    request.once('error', error => { cleanup(); reject(error); });
+    request.once('close', () => { if (!response) cleanup(); });
+    signal?.addEventListener('abort', abort, { once: true });
+    if (signal?.aborted) { abort(); return; }
     request.end(body);
   });
 }
